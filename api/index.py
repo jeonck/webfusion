@@ -24,10 +24,12 @@ from webfusion.scanner.engine import ScanError, SsrfBlocked, scan  # noqa: E402
 
 app = FastAPI(title="WebFusion Scanner (hosted)")
 
-_UI_PATH = os.path.join(
+_UI_DIR = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-    "webfusion", "ui_scan", "index.html",
+    "webfusion", "ui_scan",
 )
+_UI_PATH = os.path.join(_UI_DIR, "index.html")
+_SAMPLE_PATH = os.path.join(_UI_DIR, "sample.html")
 
 
 class ScanReq(BaseModel):
@@ -61,3 +63,14 @@ def index() -> str:
             return fh.read()
     except OSError:
         return "<h1>WebFusion Scanner</h1><p>UI asset missing.</p>"
+
+
+@app.get("/sample", response_class=HTMLResponse)
+def sample() -> str:
+    """A pre-rendered example report so visitors can see the output format
+    without running a scan (an assessment of the local demo target)."""
+    try:
+        with open(_SAMPLE_PATH, encoding="utf-8") as fh:
+            return fh.read()
+    except OSError:
+        return "<h1>Sample report unavailable.</h1>"

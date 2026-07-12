@@ -239,13 +239,13 @@
           "ruleId": "reflected-xss",
           "level": "error",
           "message": {
-            "text": "Reflected XSS in parameter 'q'. Payload reflected unencoded: wf8555f0\"'><svg/onload=alert(1)> Fix: Context-aware output encoding; apply a strict Content-Security-Policy."
+            "text": "Reflected XSS in parameter 'q'. Payload reflected unencoded: wfd8090d\"'><svg/onload=alert(1)> Fix: Context-aware output encoding; apply a strict Content-Security-Policy."
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "http://127.0.0.1:8099/search?q=wf8555f0%22%27%3E%3Csvg%2Fonload%3Dalert%281%29%3E"
+                  "uri": "http://127.0.0.1:8099/search?q=wfd8090d%22%27%3E%3Csvg%2Fonload%3Dalert%281%29%3E"
                 }
               }
             }

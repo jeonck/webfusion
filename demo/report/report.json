@@ -1,7 +1,7 @@
 {
   "report": "Acme Store \u2014 demo assessment",
   "target": "http://127.0.0.1:8099",
-  "generated_at": "2026-07-12T03:11:58.986386+00:00",
+  "generated_at": "2026-07-12T03:50:44.237491+00:00",
   "scanner": "WebFusion 0.1.0",
   "summary": {
     "endpoints_scanned": 7,
@@ -19,7 +19,7 @@
     {
       "url": "http://127.0.0.1:8099/",
       "active": true,
-      "duration_ms": 66.2,
+      "duration_ms": 57.4,
       "findings": [
         {
           "id": "content-security-policy",
@@ -70,15 +70,15 @@
     {
       "url": "http://127.0.0.1:8099/search?q=shoes",
       "active": true,
-      "duration_ms": 7.6,
+      "duration_ms": 6.9,
       "findings": [
         {
           "id": "reflected-xss",
           "name": "Reflected XSS in parameter 'q'",
           "severity": "high",
           "confidence": "high",
-          "url": "http://127.0.0.1:8099/search?q=wf8555f0%22%27%3E%3Csvg%2Fonload%3Dalert%281%29%3E",
-          "evidence": "Payload reflected unencoded: wf8555f0\"'><svg/onload=alert(1)>",
+          "url": "http://127.0.0.1:8099/search?q=wfd8090d%22%27%3E%3Csvg%2Fonload%3Dalert%281%29%3E",
+          "evidence": "Payload reflected unencoded: wfd8090d\"'><svg/onload=alert(1)>",
           "description": "User input is reflected into the response without output encoding.",
           "remediation": "Context-aware output encoding; apply a strict Content-Security-Policy.",
           "cwe": "CWE-79"
@@ -132,7 +132,7 @@
     {
       "url": "http://127.0.0.1:8099/product?id=1",
       "active": true,
-      "duration_ms": 7.0,
+      "duration_ms": 6.5,
       "findings": [
         {
           "id": "sqli-error",
@@ -194,7 +194,7 @@
     {
       "url": "http://127.0.0.1:8099/login",
       "active": true,
-      "duration_ms": 3.6,
+      "duration_ms": 3.8,
       "findings": [
         {
           "id": "content-security-policy",
@@ -256,7 +256,7 @@
     {
       "url": "http://127.0.0.1:8099/redirect?url=/account",
       "active": true,
-      "duration_ms": 12.6,
+      "duration_ms": 14.8,
       "findings": [
         {
           "id": "open-redirect",
@@ -274,7 +274,7 @@
     {
       "url": "http://127.0.0.1:8099/download?file=readme.txt",
       "active": true,
-      "duration_ms": 7.3,
+      "duration_ms": 6.9,
       "findings": [
         {
           "id": "path-traversal",
@@ -336,7 +336,7 @@
     {
       "url": "http://127.0.0.1:8099/api/orders",
       "active": true,
-      "duration_ms": 3.2,
+      "duration_ms": 2.9,
       "findings": [
         {
           "id": "cors-wildcard-credentials",
