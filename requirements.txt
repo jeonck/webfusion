@@ -1,0 +1,5 @@
+# Slim deps — the shift-left scanner + hosted dashboard (Vercel-friendly).
+# The local interactive proxy needs more; see requirements-proxy.txt.
+fastapi>=0.110.0
+httpx>=0.27.0
+uvicorn>=0.29.0

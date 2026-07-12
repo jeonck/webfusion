@@ -1,0 +1,4 @@
+# Full local tool: scanner + interactive intercepting proxy (Repeater/Fuzzer).
+-r requirements.txt
+# Proxy core — heavy native deps, not used by the serverless scanner.
+mitmproxy>=11.0.0

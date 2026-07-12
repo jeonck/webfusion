@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WebFusion</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header>
+    <h1>Web<span>Fusion</span></h1>
+    <div class="warn">Authorized testing only — targets you own or have written permission to test.</div>
+    <div id="proxybar" class="proxybar"></div>
+  </header>
+
+  <nav id="tabs">
+    <button data-tab="history" class="active">History</button>
+    <button data-tab="intercept">Intercept <span id="pendingBadge" class="badge hidden">0</span></button>
+    <button data-tab="repeater">Repeater</button>
+    <button data-tab="fuzzer">Fuzzer</button>
+    <button data-tab="scope">Scope</button>
+  </nav>
+
+  <main>
+    <!-- HISTORY -->
+    <section id="history" class="tab active">
+      <div class="toolbar">
+        <input id="histFilter" placeholder="filter host…" />
+        <button id="histRefresh">Refresh</button>
+        <button id="histClear" class="danger">Clear</button>
+      </div>
+      <div class="split">
+        <div class="list"><table id="histTable"><thead>
+          <tr><th>#</th><th>Method</th><th>Host</th><th>Path</th><th>Status</th><th>Len</th></tr>
+        </thead><tbody></tbody></table></div>
+        <div class="detail" id="histDetail"><em>Select a request.</em></div>
+      </div>
+    </section>
+
+    <!-- INTERCEPT -->
+    <section id="intercept" class="tab">
+      <div class="toolbar">
+        <label class="switch"><input type="checkbox" id="interceptToggle" /> Intercept requests</label>
+        <span class="hint">In-scope requests pause here until you forward or drop them.</span>
+      </div>
+      <div id="pendingList"></div>
+    </section>
+
+    <!-- REPEATER -->
+    <section id="repeater" class="tab">
+      <div class="split">
+        <div class="req">
+          <div class="row">
+            <select id="rMethod">
+              <option>GET</option><option>POST</option><option>PUT</option>
+              <option>DELETE</option><option>PATCH</option><option>HEAD</option><option>OPTIONS</option>
+            </select>
+            <input id="rUrl" placeholder="https://target.example/path" />
+            <button id="rSend">Send ▶</button>
+          </div>
+          <label>Headers (one per line: <code>Name: value</code>)</label>
+          <textarea id="rHeaders" rows="6"></textarea>
+          <label>Body</label>
+          <textarea id="rBody" rows="8"></textarea>
+        </div>
+        <div class="resp"><pre id="rResp"><em>Response appears here.</em></pre></div>
+      </div>
+    </section>
+
+    <!-- FUZZER -->
+    <section id="fuzzer" class="tab">
+      <div class="split">
+        <div class="req">
+          <div class="row">
+            <select id="fMethod">
+              <option>GET</option><option>POST</option><option>PUT</option>
+              <option>DELETE</option><option>PATCH</option>
+            </select>
+            <input id="fUrl" placeholder="https://target.example/path?id=§FUZZ§" />
+          </div>
+          <label>Marker (place it in URL, a header value, or body)</label>
+          <input id="fMarker" value="§FUZZ§" />
+          <label>Headers</label>
+          <textarea id="fHeaders" rows="4"></textarea>
+          <label>Body</label>
+          <textarea id="fBody" rows="4"></textarea>
+          <label>Payloads (one per line)</label>
+          <textarea id="fPayloads" rows="6" placeholder="admin&#10;' OR '1'='1&#10;../../etc/passwd"></textarea>
+          <div class="row">
+            <label>Concurrency <input id="fConc" type="number" value="20" min="1" max="200" style="width:5em" /></label>
+            <button id="fStart">Start fuzz ▶</button>
+            <span id="fProgress" class="hint"></span>
+          </div>
+        </div>
+        <div class="resp"><table id="fTable"><thead>
+          <tr><th>#</th><th>Payload</th><th>Status</th><th>Len</th><th>ms</th></tr>
+        </thead><tbody></tbody></table></div>
+      </div>
+    </section>
+
+    <!-- SCOPE -->
+    <section id="scope" class="tab">
+      <div class="card">
+        <label class="switch"><input type="checkbox" id="scopeEnabled" /> Enforce scope</label>
+        <p class="hint">When enabled, Repeater and Fuzzer refuse hosts not listed below,
+          and only listed hosts are intercepted. Suffix match: <code>example.com</code>
+          also matches <code>api.example.com</code>.</p>
+        <label>Allowed hosts (one per line)</label>
+        <textarea id="scopeHosts" rows="6" placeholder="example.com&#10;testphp.vulnweb.com"></textarea>
+        <button id="scopeSave">Save scope</button>
+        <span id="scopeMsg" class="hint"></span>
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

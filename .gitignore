@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# WebFusion runtime data (captured traffic)
+webfusion_data/
+
+# Reports
+*.sarif
+*.json.report
+report.json
+report.html
+
+# Vercel
+.vercel/
+
+# OS
+.DS_Store

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>WebFusion — Shift-Left Web Scanner</title>
+<style>
+  :root { --bg:#0e1116; --panel:#161b22; --panel2:#1c232d; --border:#2b333d; --fg:#d7dde5;
+    --muted:#8b96a3; --accent:#4c9aff; --mono:ui-monospace,Menlo,monospace; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font-family:system-ui,-apple-system,sans-serif; }
+  header { padding:22px 20px 10px; text-align:center; }
+  h1 { margin:0; font-size:26px; } h1 span { color:var(--accent); }
+  .sub { color:var(--muted); margin:6px 0 2px; font-size:14px; }
+  .warn { color:#d29922; font-size:12.5px; margin-top:6px; }
+  main { max-width:920px; margin:0 auto; padding:14px 20px 60px; }
+  .box { background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:16px; }
+  .row { display:flex; gap:10px; }
+  input { flex:1; background:var(--panel2); color:var(--fg); border:1px solid var(--border);
+    border-radius:8px; padding:11px 12px; font-size:15px; font-family:var(--mono); }
+  button { background:var(--accent); color:#fff; border:none; border-radius:8px; padding:0 20px;
+    font-size:15px; cursor:pointer; } button:disabled { opacity:.5; cursor:default; }
+  .hint { color:var(--muted); font-size:12px; margin-top:8px; }
+  .summary { display:flex; gap:8px; margin:18px 0 10px; flex-wrap:wrap; }
+  .pill { border:1px solid var(--border); border-radius:999px; padding:5px 12px; font-size:13px; }
+  .pill b { font-variant-numeric:tabular-nums; }
+  .c-critical{color:#c678dd} .c-high{color:#e5534b} .c-medium{color:#d29922}
+  .c-low{color:#4c9aff} .c-info{color:#8b96a3}
+  .finding { background:var(--panel); border:1px solid var(--border); border-left:4px solid var(--border);
+    border-radius:8px; padding:12px 14px; margin-bottom:10px; }
+  .finding.critical{border-left-color:#c678dd} .finding.high{border-left-color:#e5534b}
+  .finding.medium{border-left-color:#d29922} .finding.low{border-left-color:#4c9aff} .finding.info{border-left-color:#8b96a3}
+  .finding h3 { margin:0 0 4px; font-size:15px; }
+  .badge { font-size:11px; text-transform:uppercase; letter-spacing:.03em; padding:2px 7px;
+    border-radius:5px; background:var(--panel2); margin-right:8px; }
+  .meta { color:var(--muted); font-size:12px; margin:3px 0; }
+  .ev { font-family:var(--mono); font-size:12px; background:var(--panel2); padding:6px 8px;
+    border-radius:6px; margin:6px 0; white-space:pre-wrap; word-break:break-word; }
+  .fix { font-size:13px; } .fix b { color:var(--accent); }
+  .empty { text-align:center; color:var(--muted); padding:30px; }
+  a.cli { color:var(--accent); text-decoration:none; }
+  code { background:var(--panel2); padding:1px 6px; border-radius:5px; font-family:var(--mono); font-size:12px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Web<span>Fusion</span> Scanner</h1>
+  <div class="sub">Shift-left web security checks for your CI pipeline.</div>
+  <div class="warn">⚠ Authorized targets only — scan sites you own or have written permission to test.</div>
+</header>
+<main>
+  <div class="box">
+    <div class="row">
+      <input id="url" placeholder="https://your-app.example.com" autocomplete="off" />
+      <button id="go">Scan</button>
+    </div>
+    <div class="hint">Hosted scan is <b>passive-only</b> (security headers, cookies, CORS, info leaks) and
+      blocks internal/localhost targets. For active checks (XSS/SQLi/redirect/traversal) run the CLI:
+      <code>python -m webfusion.scan URL --active</code></div>
+  </div>
+  <div id="result"></div>
+</main>
+<script>
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+async function runScan() {
+  const url = $("#url").value.trim();
+  if (!url) return;
+  $("#go").disabled = true; $("#go").textContent = "Scanning…";
+  $("#result").innerHTML = "<div class='empty'>Running passive checks…</div>";
+  try {
+    const r = await fetch("/api/scan", { method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({ url }) });
+    const data = await r.json();
+    if (!r.ok) { $("#result").innerHTML = `<div class='box c-high'>Error: ${esc(data.error||r.statusText)}</div>`; return; }
+    render(data);
+  } catch (e) {
+    $("#result").innerHTML = `<div class='box c-high'>Error: ${esc(e.message)}</div>`;
+  } finally { $("#go").disabled = false; $("#go").textContent = "Scan"; }
+}
+function render(d) {
+  const c = d.counts || {};
+  const order = ["critical","high","medium","low","info"];
+  let html = `<div class="summary">
+    <div class="pill">Target: <b>${esc(d.target)}</b></div>
+    <div class="pill">${d.duration_ms} ms</div>` +
+    order.map(s => `<div class="pill c-${s}">${s}: <b>${c[s]||0}</b></div>`).join("") + `</div>`;
+  if (!d.findings || !d.findings.length) {
+    html += `<div class="empty">No passive issues found. (Active checks run via the CLI.)</div>`;
+  } else {
+    for (const f of d.findings) {
+      html += `<div class="finding ${f.severity}">
+        <h3><span class="badge c-${f.severity}">${f.severity}</span>${esc(f.name)}</h3>
+        <div class="meta">${esc(f.confidence)} confidence · ${esc(f.cwe||"")} · ${esc(f.url)}</div>
+        ${f.evidence ? `<div class="ev">${esc(f.evidence)}</div>` : ""}
+        <div class="fix"><b>Fix:</b> ${esc(f.remediation)}</div></div>`;
+    }
+  }
+  $("#result").innerHTML = html;
+}
+$("#go").onclick = runScan;
+$("#url").addEventListener("keydown", e => { if (e.key === "Enter") runScan(); });
+</script>
+</body>
+</html>

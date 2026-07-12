@@ -1,0 +1,59 @@
+name: WebFusion security scan
+
+# Shift-left: run the scanner in CI. Results land in the Security tab (SARIF)
+# and the job fails when issues meet the severity gate.
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "URL to scan (authorized targets only)"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+  security-events: write   # required to upload SARIF
+
+jobs:
+  self-test:
+    # Proves the scanner itself works: boots the vulnerable app, runs the eval.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Run self-eval
+        run: python eval/run_eval.py
+
+  scan-target:
+    # Scans a real target (passive) and uploads SARIF. Skipped if no target set.
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.target != '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Scan
+        run: |
+          python -m webfusion.scan "${{ github.event.inputs.target }}" \
+            --sarif webfusion.sarif --json webfusion.json \
+            --fail-on high || echo "EXIT=$?" >> "$GITHUB_ENV"
+      - name: Upload SARIF to code scanning
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: webfusion.sarif
+      - name: Enforce gate
+        if: always()
+        run: |
+          if [ "${EXIT:-0}" = "2" ]; then
+            echo "::error::Findings at or above the severity gate."; exit 1
+          fi
