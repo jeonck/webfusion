@@ -1,0 +1,377 @@
+{
+  "report": "Acme Store \u2014 demo assessment",
+  "target": "http://127.0.0.1:8099",
+  "generated_at": "2026-07-12T03:11:58.986386+00:00",
+  "scanner": "WebFusion 0.1.0",
+  "summary": {
+    "endpoints_scanned": 7,
+    "total_findings": 28,
+    "counts": {
+      "critical": 2,
+      "high": 2,
+      "medium": 6,
+      "low": 16,
+      "info": 2
+    },
+    "risk_rating": "Critical"
+  },
+  "scans": [
+    {
+      "url": "http://127.0.0.1:8099/",
+      "active": true,
+      "duration_ms": 66.2,
+      "findings": [
+        {
+          "id": "content-security-policy",
+          "name": "Missing Content-Security-Policy",
+          "severity": "medium",
+          "confidence": "high",
+          "url": "http://127.0.0.1:8099/",
+          "evidence": "Response header 'content-security-policy' not present.",
+          "description": "The response is missing the content-security-policy header.",
+          "remediation": "Add a Content-Security-Policy that restricts script/style/object sources.",
+          "cwe": "CWE-693"
+        },
+        {
+          "id": "x-content-type-options",
+          "name": "Missing X-Content-Type-Options",
+          "severity": "low",
+          "confidence": "high",
+          "url": "http://127.0.0.1:8099/",
+          "evidence": "Response header 'x-content-type-options' not present.",
+          "description": "The response is missing the x-content-type-options header.",
+          "remediation": "Set 'X-Content-Type-Options: nosniff' to stop MIME sniffing.",
+          "cwe": "CWE-693"
+        },
+        {
+          "id": "x-frame-options",
+          "name": "Missing X-Frame-Options / frame-ancestors",
+          "severity": "low",
+          "confidence": "high",
+          "url": "http://127.0.0.1:8099/",
+          "evidence": "Response header 'x-frame-options' not present.",
+          "description": "The response is missing the x-frame-options header.",
+          "remediation": "Set X-Frame-Options: DENY or a CSP frame-ancestors directive to prevent clickjacking.",
+          "cwe": "CWE-1021"
+        },
+        {
+          "id": "referrer-policy",
+          "name": "Missing Referrer-Policy",
+          "severity": "low",
+          "confidence": "high",
+          "url": "http://127.0.0.1:8099/",
+          "evidence": "Response header 'referrer-policy' not present.",
+          "description": "The response is missing the referrer-policy header.",
+          "remediation": "Set a Referrer-Policy such as 'strict-origin-when-cross-origin'.",
+          "cwe": "CWE-200"
+        }
+      ]
+    },
+    {
+      "url": "http://127.0.0.1:8099/search?q=shoes",
+      "active": true,
+      "duration_ms": 7.6,
+      "findings": [
+        {
+          "id": "reflected-xss",
+          "name": "Reflected XSS in parameter 'q'",
+          "severity": "high",
+          "confidence": "high",
+          "url": "http://127.0.0.1:8099/search?q=wf8555f0%22%27%3E%3Csvg%2Fonload%3Dalert%281%29%3E",
+          "evidence": "Payload reflected unencoded: wf8555f0\"'><svg/onload=alert(1)>",
+          "description": "User input is reflected into the response without output encoding.",
+          "remediation": "Context-aware output encoding; apply a strict Content-Security-Policy.",
+          "cwe": "CWE-79"
+        },
+        {
+          "id": "content-security-policy",
+          "name": "Missing Content-Security-Policy",
+          "severity": "medium",
+          "confidence": "high",
+          "url": "http://127.0.0.1:8099/search?q=shoes",
+          "evidence": "Response header 'content-security-policy' not present.",
+          "description": "The response is missing the content-security-policy header.",
+          "remediation": "Add a Content-Security-Policy that restricts script/style/object sources.",
+          "cwe": "CWE-693"
+        },
+        {
+          "id": "x-content-type-options",
+          "name": "Missing X-Content-Type-Options",
+          "severity": "low",
+          "confidence": "high",
+          "url": "http://127.0.0.1:8099/search?q=shoes",
+          "evidence": "Response header 'x-content-type-options' not present.",
+          "description": "The response is missing the x-content-type-options header.",
+          "remediation": "Set 'X-Content-Type-Options: nosniff' to stop MIME sniffing.",
+          "cwe": "CWE-693"
+        },
+        {
+          "id": "x-frame-options",
+          "name": "Missing X-Frame-Options / frame-ancestors",
+          "severity": "low",
+          "confidence": "high",
+          "url": "http://127.0.0.1:8099/search?q=shoes",
+          "evidence": "Response header 'x-frame-options' not present.",
+          "description": "The response is missing the x-frame-options header.",
+          "remediation": "Set X-Frame-Options: DENY or a CSP frame-ancestors directive to prevent clickjacking.",
+          "cwe": "CWE-1021"
+        },
+        {
+          "id": "referrer-policy",
+          "name": "Missing Referrer-Policy",
+          "severity": "low",
+          "confidence": "high",
+          "url": "http://127.0.0.1:8099/search?q=shoes",
+          "evidence": "Response header 'referrer-policy' not present.",
+          "description": "The response is missing the referrer-policy header.",
+          "remediation": "Set a Referrer-Policy such as 'strict-origin-when-cross-origin'.",
+          "cwe": "CWE-200"
+        }
+      ]
+    },
+    {
+      "url": "http://127.0.0.1:8099/product?id=1",
+      "active": true,
+      "duration_ms": 7.0,
+      "findings": [
+        {
+          "id": "sqli-error",
+          "name": "SQL injection (error-based) in parameter 'id'",
+          "severity": "critical",
+          "confidence": "high",
+          "url": "http://127.0.0.1:8099/product?id=1%27",
+          "evidence": "SQL syntax; check the manual that corresponds to your MySQL",
+          "description": "Appending a quote triggers a database error, indicating unsanitized SQL.",
+          "remediation": "Use parameterized queries / prepared statements; never concatenate input into SQL.",
+          "cwe": "CWE-89"
+        },
+        {
+          "id": "content-security-policy",
+          "name": "Missing Content-Security-Policy",
+          "severity": "medium",
+          "confidence": "high",
+          "url": "http://127.0.0.1:8099/product?id=1",
+          "evidence": "Response header 'content-security-policy' not present.",
+          "description": "The response is missing the content-security-policy header.",
+          "remediation": "Add a Content-Security-Policy that restricts script/style/object sources.",
+          "cwe": "CWE-693"
+        },
+        {
+          "id": "x-content-type-options",
+          "name": "Missing X-Content-Type-Options",
+          "severity": "low",
+          "confidence": "high",
+          "url": "http://127.0.0.1:8099/product?id=1",
+          "evidence": "Response header 'x-content-type-options' not present.",
+          "description": "The response is missing the x-content-type-options header.",
+          "remediation": "Set 'X-Content-Type-Options: nosniff' to stop MIME sniffing.",
+          "cwe": "CWE-693"
+        },
+        {
+          "id": "x-frame-options",
+          "name": "Missing X-Frame-Options / frame-ancestors",
+          "severity": "low",
+          "confidence": "high",
+          "url": "http://127.0.0.1:8099/product?id=1",
+          "evidence": "Response header 'x-frame-options' not present.",
+          "description": "The response is missing the x-frame-options header.",
+          "remediation": "Set X-Frame-Options: DENY or a CSP frame-ancestors directive to prevent clickjacking.",
+          "cwe": "CWE-1021"
+        },
+        {
+          "id": "referrer-policy",
+          "name": "Missing Referrer-Policy",
+          "severity": "low",
+          "confidence": "high",
+          "url": "http://127.0.0.1:8099/product?id=1",
+          "evidence": "Response header 'referrer-policy' not present.",
+          "description": "The response is missing the referrer-policy header.",
+          "remediation": "Set a Referrer-Policy such as 'strict-origin-when-cross-origin'.",
+          "cwe": "CWE-200"
+        }
+      ]
+    },
+    {
+      "url": "http://127.0.0.1:8099/login",
+      "active": true,
+      "duration_ms": 3.6,
+      "findings": [
+        {
+          "id": "content-security-policy",
+          "name": "Missing Content-Security-Policy",
+          "severity": "medium",
+          "confidence": "high",
+          "url": "http://127.0.0.1:8099/login",
+          "evidence": "Response header 'content-security-policy' not present.",
+          "description": "The response is missing the content-security-policy header.",
+          "remediation": "Add a Content-Security-Policy that restricts script/style/object sources.",
+          "cwe": "CWE-693"
+        },
+        {
+          "id": "x-content-type-options",
+          "name": "Missing X-Content-Type-Options",
+          "severity": "low",
+          "confidence": "high",
+          "url": "http://127.0.0.1:8099/login",
+          "evidence": "Response header 'x-content-type-options' not present.",
+          "description": "The response is missing the x-content-type-options header.",
+          "remediation": "Set 'X-Content-Type-Options: nosniff' to stop MIME sniffing.",
+          "cwe": "CWE-693"
+        },
+        {
+          "id": "x-frame-options",
+          "name": "Missing X-Frame-Options / frame-ancestors",
+          "severity": "low",
+          "confidence": "high",
+          "url": "http://127.0.0.1:8099/login",
+          "evidence": "Response header 'x-frame-options' not present.",
+          "description": "The response is missing the x-frame-options header.",
+          "remediation": "Set X-Frame-Options: DENY or a CSP frame-ancestors directive to prevent clickjacking.",
+          "cwe": "CWE-1021"
+        },
+        {
+          "id": "referrer-policy",
+          "name": "Missing Referrer-Policy",
+          "severity": "low",
+          "confidence": "high",
+          "url": "http://127.0.0.1:8099/login",
+          "evidence": "Response header 'referrer-policy' not present.",
+          "description": "The response is missing the referrer-policy header.",
+          "remediation": "Set a Referrer-Policy such as 'strict-origin-when-cross-origin'.",
+          "cwe": "CWE-200"
+        },
+        {
+          "id": "cookie-flags",
+          "name": "Cookie 'SESSIONID' missing HttpOnly, SameSite",
+          "severity": "low",
+          "confidence": "high",
+          "url": "http://127.0.0.1:8099/login",
+          "evidence": "SESSIONID=demo-abc-123; Path=/",
+          "description": "Set-Cookie for 'SESSIONID' lacks: HttpOnly, SameSite.",
+          "remediation": "Set HttpOnly, Secure (on HTTPS) and SameSite on session cookies.",
+          "cwe": "CWE-1004"
+        }
+      ]
+    },
+    {
+      "url": "http://127.0.0.1:8099/redirect?url=/account",
+      "active": true,
+      "duration_ms": 12.6,
+      "findings": [
+        {
+          "id": "open-redirect",
+          "name": "Open redirect via parameter 'url'",
+          "severity": "medium",
+          "confidence": "high",
+          "url": "http://127.0.0.1:8099/redirect?url=https%3A%2F%2Fwebfusion-oob.example%2F",
+          "evidence": "Location: https://webfusion-oob.example/",
+          "description": "The app redirects to an attacker-controlled external URL.",
+          "remediation": "Allow-list redirect targets or use relative paths only.",
+          "cwe": "CWE-601"
+        }
+      ]
+    },
+    {
+      "url": "http://127.0.0.1:8099/download?file=readme.txt",
+      "active": true,
+      "duration_ms": 7.3,
+      "findings": [
+        {
+          "id": "path-traversal",
+          "name": "Path traversal via parameter 'file'",
+          "severity": "critical",
+          "confidence": "high",
+          "url": "http://127.0.0.1:8099/download?file=..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd",
+          "evidence": "Response contains /etc/passwd contents (root:...:0:0:)",
+          "description": "A file path parameter allows reading arbitrary files via '../' sequences.",
+          "remediation": "Canonicalize and validate paths against an allow-list; never use raw input in file paths.",
+          "cwe": "CWE-22"
+        },
+        {
+          "id": "content-security-policy",
+          "name": "Missing Content-Security-Policy",
+          "severity": "medium",
+          "confidence": "high",
+          "url": "http://127.0.0.1:8099/download?file=readme.txt",
+          "evidence": "Response header 'content-security-policy' not present.",
+          "description": "The response is missing the content-security-policy header.",
+          "remediation": "Add a Content-Security-Policy that restricts script/style/object sources.",
+          "cwe": "CWE-693"
+        },
+        {
+          "id": "x-content-type-options",
+          "name": "Missing X-Content-Type-Options",
+          "severity": "low",
+          "confidence": "high",
+          "url": "http://127.0.0.1:8099/download?file=readme.txt",
+          "evidence": "Response header 'x-content-type-options' not present.",
+          "description": "The response is missing the x-content-type-options header.",
+          "remediation": "Set 'X-Content-Type-Options: nosniff' to stop MIME sniffing.",
+          "cwe": "CWE-693"
+        },
+        {
+          "id": "x-frame-options",
+          "name": "Missing X-Frame-Options / frame-ancestors",
+          "severity": "low",
+          "confidence": "high",
+          "url": "http://127.0.0.1:8099/download?file=readme.txt",
+          "evidence": "Response header 'x-frame-options' not present.",
+          "description": "The response is missing the x-frame-options header.",
+          "remediation": "Set X-Frame-Options: DENY or a CSP frame-ancestors directive to prevent clickjacking.",
+          "cwe": "CWE-1021"
+        },
+        {
+          "id": "referrer-policy",
+          "name": "Missing Referrer-Policy",
+          "severity": "low",
+          "confidence": "high",
+          "url": "http://127.0.0.1:8099/download?file=readme.txt",
+          "evidence": "Response header 'referrer-policy' not present.",
+          "description": "The response is missing the referrer-policy header.",
+          "remediation": "Set a Referrer-Policy such as 'strict-origin-when-cross-origin'.",
+          "cwe": "CWE-200"
+        }
+      ]
+    },
+    {
+      "url": "http://127.0.0.1:8099/api/orders",
+      "active": true,
+      "duration_ms": 3.2,
+      "findings": [
+        {
+          "id": "cors-wildcard-credentials",
+          "name": "CORS allows any origin with credentials",
+          "severity": "high",
+          "confidence": "high",
+          "url": "http://127.0.0.1:8099/api/orders",
+          "evidence": "Access-Control-Allow-Origin: * with Allow-Credentials: true",
+          "description": "A wildcard ACAO combined with credentials lets any site read authenticated responses.",
+          "remediation": "Reflect only an explicit allow-list of trusted origins when credentials are used.",
+          "cwe": "CWE-942"
+        },
+        {
+          "id": "version-disclosure",
+          "name": "Version disclosure in 'server' header",
+          "severity": "info",
+          "confidence": "high",
+          "url": "http://127.0.0.1:8099/api/orders",
+          "evidence": "server: uvicorn, Apache/2.4.29",
+          "description": "Server/framework version is exposed, aiding targeted attacks.",
+          "remediation": "Suppress or genericize Server/X-Powered-By headers.",
+          "cwe": "CWE-200"
+        },
+        {
+          "id": "version-disclosure",
+          "name": "Version disclosure in 'x-powered-by' header",
+          "severity": "info",
+          "confidence": "high",
+          "url": "http://127.0.0.1:8099/api/orders",
+          "evidence": "x-powered-by: PHP/7.2.1",
+          "description": "Server/framework version is exposed, aiding targeted attacks.",
+          "remediation": "Suppress or genericize Server/X-Powered-By headers.",
+          "cwe": "CWE-200"
+        }
+      ]
+    }
+  ]
+}

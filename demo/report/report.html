@@ -1,0 +1,345 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Acme Store — demo assessment</title>
+<style>
+  :root{--bg:#0e1116;--panel:#161b22;--panel2:#1c232d;--border:#2b333d;--fg:#e6edf3;--muted:#8b96a3;--mono:ui-monospace,Menlo,monospace}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,sans-serif;line-height:1.5}
+  .wrap{max-width:960px;margin:0 auto;padding:32px 24px 64px}
+  h1{margin:0 0 4px;font-size:26px} h1 span{color:#4c9aff}
+  .subtitle{color:var(--muted);font-size:14px;margin-bottom:22px}
+  .banner{background:#3a2a12;border:1px solid #6b4d1f;color:#f0c674;padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:22px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:22px}
+  .box{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px}
+  .risk{font-size:30px;font-weight:700}
+  .bar{display:flex;height:14px;border-radius:7px;overflow:hidden;background:var(--panel2);margin:10px 0}
+  .bar span{display:block}
+  .pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .pill{background:var(--panel2);border:1px solid var(--border);border-radius:999px;padding:4px 11px;font-size:12.5px}
+  .pill b{font-variant-numeric:tabular-nums}
+  .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:middle}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--border)}
+  th{color:var(--muted);font-weight:600}
+  h2{font-size:17px;margin:26px 0 12px;border-bottom:1px solid var(--border);padding-bottom:6px}
+  .card{background:var(--panel);border:1px solid var(--border);border-left-width:4px;border-radius:10px;padding:14px 16px;margin-bottom:12px}
+  .card-head{display:flex;align-items:center;gap:10px}
+  .card h3{margin:0;font-size:15.5px}
+  .sev{font-size:11px;font-weight:700;color:#0e1116;padding:2px 8px;border-radius:5px;letter-spacing:.03em}
+  .meta{color:var(--muted);font-size:12.5px;margin:6px 0}
+  .meta a{color:#4c9aff;text-decoration:none}
+  .ev{font-family:var(--mono);font-size:12px;background:var(--panel2);padding:8px 10px;border-radius:7px;margin:8px 0;white-space:pre-wrap;word-break:break-word}
+  .desc{font-size:13.5px;margin:6px 0}
+  .fix{font-size:13.5px} .fix b{color:#4c9aff}
+  footer{color:var(--muted);font-size:12px;margin-top:32px;border-top:1px solid var(--border);padding-top:14px}
+</style></head><body><div class="wrap">
+  <h1>Web<span>Fusion</span> — Security Assessment Report</h1>
+  <div class="subtitle">Acme Store — demo assessment · Generated 2026-07-11 22:11 · Scanner WebFusion 0.1.0</div>
+  <div class="banner">⚠ Authorized assessment. Target is a demo application owned by the tester.
+    This report is for the site's owner and authorized recipients only.</div>
+
+  <div class="grid">
+    <div class="box">
+      <div style="color:var(--muted);font-size:13px">Overall risk</div>
+      <div class="risk" style="color:#c678dd">Critical</div>
+      <div style="color:var(--muted);font-size:13px;margin-top:8px">Target: http://127.0.0.1:8099</div>
+      <div style="color:var(--muted);font-size:13px">Endpoints scanned: 7</div>
+    </div>
+    <div class="box">
+      <div style="color:var(--muted);font-size:13px">Findings by severity (28 total)</div>
+      <div class="bar"><span style='width:7.1%;background:#c678dd'></span><span style='width:7.1%;background:#e5534b'></span><span style='width:21.4%;background:#d29922'></span><span style='width:57.1%;background:#4c9aff'></span><span style='width:7.1%;background:#8b96a3'></span></div>
+      <div class="pills"><div class='pill'><span class='dot' style='background:#c678dd'></span>Critical <b>2</b></div><div class='pill'><span class='dot' style='background:#e5534b'></span>High <b>2</b></div><div class='pill'><span class='dot' style='background:#d29922'></span>Medium <b>6</b></div><div class='pill'><span class='dot' style='background:#4c9aff'></span>Low <b>16</b></div><div class='pill'><span class='dot' style='background:#8b96a3'></span>Info <b>2</b></div></div>
+    </div>
+  </div>
+
+  <h2>Scope — endpoints assessed</h2>
+  <div class="box"><table>
+    <tr><th>URL</th><th>Mode</th><th>Findings</th><th>Time</th></tr><tr><td>http://127.0.0.1:8099/</td><td>active</td><td>4</td><td>66 ms</td></tr><tr><td>http://127.0.0.1:8099/search?q=shoes</td><td>active</td><td>5</td><td>8 ms</td></tr><tr><td>http://127.0.0.1:8099/product?id=1</td><td>active</td><td>5</td><td>7 ms</td></tr><tr><td>http://127.0.0.1:8099/login</td><td>active</td><td>5</td><td>4 ms</td></tr><tr><td>http://127.0.0.1:8099/redirect?url=/account</td><td>active</td><td>1</td><td>13 ms</td></tr><tr><td>http://127.0.0.1:8099/download?file=readme.txt</td><td>active</td><td>5</td><td>7 ms</td></tr><tr><td>http://127.0.0.1:8099/api/orders</td><td>active</td><td>3</td><td>3 ms</td></tr>
+  </table></div>
+
+  <h2>Findings (28)</h2>
+  <div class="card" style="border-left-color:#c678dd">
+  <div class="card-head">
+    <span class="sev" style="background:#c678dd">CRITICAL</span>
+    <h3>SQL injection (error-based) in parameter &#x27;id&#x27;</h3>
+  </div>
+  <div class="meta">high confidence · CWE-89 ·
+    <a href="http://127.0.0.1:8099/product?id=1%27">http://127.0.0.1:8099/product?id=1%27</a></div>
+  <div class="ev">SQL syntax; check the manual that corresponds to your MySQL</div>
+  <div class="desc">Appending a quote triggers a database error, indicating unsanitized SQL.</div>
+  <div class="fix"><b>Remediation:</b> Use parameterized queries / prepared statements; never concatenate input into SQL.</div>
+</div><div class="card" style="border-left-color:#c678dd">
+  <div class="card-head">
+    <span class="sev" style="background:#c678dd">CRITICAL</span>
+    <h3>Path traversal via parameter &#x27;file&#x27;</h3>
+  </div>
+  <div class="meta">high confidence · CWE-22 ·
+    <a href="http://127.0.0.1:8099/download?file=..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd">http://127.0.0.1:8099/download?file=..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd</a></div>
+  <div class="ev">Response contains /etc/passwd contents (root:...:0:0:)</div>
+  <div class="desc">A file path parameter allows reading arbitrary files via &#x27;../&#x27; sequences.</div>
+  <div class="fix"><b>Remediation:</b> Canonicalize and validate paths against an allow-list; never use raw input in file paths.</div>
+</div><div class="card" style="border-left-color:#e5534b">
+  <div class="card-head">
+    <span class="sev" style="background:#e5534b">HIGH</span>
+    <h3>Reflected XSS in parameter &#x27;q&#x27;</h3>
+  </div>
+  <div class="meta">high confidence · CWE-79 ·
+    <a href="http://127.0.0.1:8099/search?q=wf8555f0%22%27%3E%3Csvg%2Fonload%3Dalert%281%29%3E">http://127.0.0.1:8099/search?q=wf8555f0%22%27%3E%3Csvg%2Fonload%3Dalert%281%29%3E</a></div>
+  <div class="ev">Payload reflected unencoded: wf8555f0&quot;&#x27;&gt;&lt;svg/onload=alert(1)&gt;</div>
+  <div class="desc">User input is reflected into the response without output encoding.</div>
+  <div class="fix"><b>Remediation:</b> Context-aware output encoding; apply a strict Content-Security-Policy.</div>
+</div><div class="card" style="border-left-color:#e5534b">
+  <div class="card-head">
+    <span class="sev" style="background:#e5534b">HIGH</span>
+    <h3>CORS allows any origin with credentials</h3>
+  </div>
+  <div class="meta">high confidence · CWE-942 ·
+    <a href="http://127.0.0.1:8099/api/orders">http://127.0.0.1:8099/api/orders</a></div>
+  <div class="ev">Access-Control-Allow-Origin: * with Allow-Credentials: true</div>
+  <div class="desc">A wildcard ACAO combined with credentials lets any site read authenticated responses.</div>
+  <div class="fix"><b>Remediation:</b> Reflect only an explicit allow-list of trusted origins when credentials are used.</div>
+</div><div class="card" style="border-left-color:#d29922">
+  <div class="card-head">
+    <span class="sev" style="background:#d29922">MEDIUM</span>
+    <h3>Missing Content-Security-Policy</h3>
+  </div>
+  <div class="meta">high confidence · CWE-693 ·
+    <a href="http://127.0.0.1:8099/">http://127.0.0.1:8099/</a></div>
+  <div class="ev">Response header &#x27;content-security-policy&#x27; not present.</div>
+  <div class="desc">The response is missing the content-security-policy header.</div>
+  <div class="fix"><b>Remediation:</b> Add a Content-Security-Policy that restricts script/style/object sources.</div>
+</div><div class="card" style="border-left-color:#d29922">
+  <div class="card-head">
+    <span class="sev" style="background:#d29922">MEDIUM</span>
+    <h3>Missing Content-Security-Policy</h3>
+  </div>
+  <div class="meta">high confidence · CWE-693 ·
+    <a href="http://127.0.0.1:8099/search?q=shoes">http://127.0.0.1:8099/search?q=shoes</a></div>
+  <div class="ev">Response header &#x27;content-security-policy&#x27; not present.</div>
+  <div class="desc">The response is missing the content-security-policy header.</div>
+  <div class="fix"><b>Remediation:</b> Add a Content-Security-Policy that restricts script/style/object sources.</div>
+</div><div class="card" style="border-left-color:#d29922">
+  <div class="card-head">
+    <span class="sev" style="background:#d29922">MEDIUM</span>
+    <h3>Missing Content-Security-Policy</h3>
+  </div>
+  <div class="meta">high confidence · CWE-693 ·
+    <a href="http://127.0.0.1:8099/product?id=1">http://127.0.0.1:8099/product?id=1</a></div>
+  <div class="ev">Response header &#x27;content-security-policy&#x27; not present.</div>
+  <div class="desc">The response is missing the content-security-policy header.</div>
+  <div class="fix"><b>Remediation:</b> Add a Content-Security-Policy that restricts script/style/object sources.</div>
+</div><div class="card" style="border-left-color:#d29922">
+  <div class="card-head">
+    <span class="sev" style="background:#d29922">MEDIUM</span>
+    <h3>Missing Content-Security-Policy</h3>
+  </div>
+  <div class="meta">high confidence · CWE-693 ·
+    <a href="http://127.0.0.1:8099/login">http://127.0.0.1:8099/login</a></div>
+  <div class="ev">Response header &#x27;content-security-policy&#x27; not present.</div>
+  <div class="desc">The response is missing the content-security-policy header.</div>
+  <div class="fix"><b>Remediation:</b> Add a Content-Security-Policy that restricts script/style/object sources.</div>
+</div><div class="card" style="border-left-color:#d29922">
+  <div class="card-head">
+    <span class="sev" style="background:#d29922">MEDIUM</span>
+    <h3>Open redirect via parameter &#x27;url&#x27;</h3>
+  </div>
+  <div class="meta">high confidence · CWE-601 ·
+    <a href="http://127.0.0.1:8099/redirect?url=https%3A%2F%2Fwebfusion-oob.example%2F">http://127.0.0.1:8099/redirect?url=https%3A%2F%2Fwebfusion-oob.example%2F</a></div>
+  <div class="ev">Location: https://webfusion-oob.example/</div>
+  <div class="desc">The app redirects to an attacker-controlled external URL.</div>
+  <div class="fix"><b>Remediation:</b> Allow-list redirect targets or use relative paths only.</div>
+</div><div class="card" style="border-left-color:#d29922">
+  <div class="card-head">
+    <span class="sev" style="background:#d29922">MEDIUM</span>
+    <h3>Missing Content-Security-Policy</h3>
+  </div>
+  <div class="meta">high confidence · CWE-693 ·
+    <a href="http://127.0.0.1:8099/download?file=readme.txt">http://127.0.0.1:8099/download?file=readme.txt</a></div>
+  <div class="ev">Response header &#x27;content-security-policy&#x27; not present.</div>
+  <div class="desc">The response is missing the content-security-policy header.</div>
+  <div class="fix"><b>Remediation:</b> Add a Content-Security-Policy that restricts script/style/object sources.</div>
+</div><div class="card" style="border-left-color:#4c9aff">
+  <div class="card-head">
+    <span class="sev" style="background:#4c9aff">LOW</span>
+    <h3>Missing X-Content-Type-Options</h3>
+  </div>
+  <div class="meta">high confidence · CWE-693 ·
+    <a href="http://127.0.0.1:8099/">http://127.0.0.1:8099/</a></div>
+  <div class="ev">Response header &#x27;x-content-type-options&#x27; not present.</div>
+  <div class="desc">The response is missing the x-content-type-options header.</div>
+  <div class="fix"><b>Remediation:</b> Set &#x27;X-Content-Type-Options: nosniff&#x27; to stop MIME sniffing.</div>
+</div><div class="card" style="border-left-color:#4c9aff">
+  <div class="card-head">
+    <span class="sev" style="background:#4c9aff">LOW</span>
+    <h3>Missing X-Frame-Options / frame-ancestors</h3>
+  </div>
+  <div class="meta">high confidence · CWE-1021 ·
+    <a href="http://127.0.0.1:8099/">http://127.0.0.1:8099/</a></div>
+  <div class="ev">Response header &#x27;x-frame-options&#x27; not present.</div>
+  <div class="desc">The response is missing the x-frame-options header.</div>
+  <div class="fix"><b>Remediation:</b> Set X-Frame-Options: DENY or a CSP frame-ancestors directive to prevent clickjacking.</div>
+</div><div class="card" style="border-left-color:#4c9aff">
+  <div class="card-head">
+    <span class="sev" style="background:#4c9aff">LOW</span>
+    <h3>Missing Referrer-Policy</h3>
+  </div>
+  <div class="meta">high confidence · CWE-200 ·
+    <a href="http://127.0.0.1:8099/">http://127.0.0.1:8099/</a></div>
+  <div class="ev">Response header &#x27;referrer-policy&#x27; not present.</div>
+  <div class="desc">The response is missing the referrer-policy header.</div>
+  <div class="fix"><b>Remediation:</b> Set a Referrer-Policy such as &#x27;strict-origin-when-cross-origin&#x27;.</div>
+</div><div class="card" style="border-left-color:#4c9aff">
+  <div class="card-head">
+    <span class="sev" style="background:#4c9aff">LOW</span>
+    <h3>Missing X-Content-Type-Options</h3>
+  </div>
+  <div class="meta">high confidence · CWE-693 ·
+    <a href="http://127.0.0.1:8099/search?q=shoes">http://127.0.0.1:8099/search?q=shoes</a></div>
+  <div class="ev">Response header &#x27;x-content-type-options&#x27; not present.</div>
+  <div class="desc">The response is missing the x-content-type-options header.</div>
+  <div class="fix"><b>Remediation:</b> Set &#x27;X-Content-Type-Options: nosniff&#x27; to stop MIME sniffing.</div>
+</div><div class="card" style="border-left-color:#4c9aff">
+  <div class="card-head">
+    <span class="sev" style="background:#4c9aff">LOW</span>
+    <h3>Missing X-Frame-Options / frame-ancestors</h3>
+  </div>
+  <div class="meta">high confidence · CWE-1021 ·
+    <a href="http://127.0.0.1:8099/search?q=shoes">http://127.0.0.1:8099/search?q=shoes</a></div>
+  <div class="ev">Response header &#x27;x-frame-options&#x27; not present.</div>
+  <div class="desc">The response is missing the x-frame-options header.</div>
+  <div class="fix"><b>Remediation:</b> Set X-Frame-Options: DENY or a CSP frame-ancestors directive to prevent clickjacking.</div>
+</div><div class="card" style="border-left-color:#4c9aff">
+  <div class="card-head">
+    <span class="sev" style="background:#4c9aff">LOW</span>
+    <h3>Missing Referrer-Policy</h3>
+  </div>
+  <div class="meta">high confidence · CWE-200 ·
+    <a href="http://127.0.0.1:8099/search?q=shoes">http://127.0.0.1:8099/search?q=shoes</a></div>
+  <div class="ev">Response header &#x27;referrer-policy&#x27; not present.</div>
+  <div class="desc">The response is missing the referrer-policy header.</div>
+  <div class="fix"><b>Remediation:</b> Set a Referrer-Policy such as &#x27;strict-origin-when-cross-origin&#x27;.</div>
+</div><div class="card" style="border-left-color:#4c9aff">
+  <div class="card-head">
+    <span class="sev" style="background:#4c9aff">LOW</span>
+    <h3>Missing X-Content-Type-Options</h3>
+  </div>
+  <div class="meta">high confidence · CWE-693 ·
+    <a href="http://127.0.0.1:8099/product?id=1">http://127.0.0.1:8099/product?id=1</a></div>
+  <div class="ev">Response header &#x27;x-content-type-options&#x27; not present.</div>
+  <div class="desc">The response is missing the x-content-type-options header.</div>
+  <div class="fix"><b>Remediation:</b> Set &#x27;X-Content-Type-Options: nosniff&#x27; to stop MIME sniffing.</div>
+</div><div class="card" style="border-left-color:#4c9aff">
+  <div class="card-head">
+    <span class="sev" style="background:#4c9aff">LOW</span>
+    <h3>Missing X-Frame-Options / frame-ancestors</h3>
+  </div>
+  <div class="meta">high confidence · CWE-1021 ·
+    <a href="http://127.0.0.1:8099/product?id=1">http://127.0.0.1:8099/product?id=1</a></div>
+  <div class="ev">Response header &#x27;x-frame-options&#x27; not present.</div>
+  <div class="desc">The response is missing the x-frame-options header.</div>
+  <div class="fix"><b>Remediation:</b> Set X-Frame-Options: DENY or a CSP frame-ancestors directive to prevent clickjacking.</div>
+</div><div class="card" style="border-left-color:#4c9aff">
+  <div class="card-head">
+    <span class="sev" style="background:#4c9aff">LOW</span>
+    <h3>Missing Referrer-Policy</h3>
+  </div>
+  <div class="meta">high confidence · CWE-200 ·
+    <a href="http://127.0.0.1:8099/product?id=1">http://127.0.0.1:8099/product?id=1</a></div>
+  <div class="ev">Response header &#x27;referrer-policy&#x27; not present.</div>
+  <div class="desc">The response is missing the referrer-policy header.</div>
+  <div class="fix"><b>Remediation:</b> Set a Referrer-Policy such as &#x27;strict-origin-when-cross-origin&#x27;.</div>
+</div><div class="card" style="border-left-color:#4c9aff">
+  <div class="card-head">
+    <span class="sev" style="background:#4c9aff">LOW</span>
+    <h3>Missing X-Content-Type-Options</h3>
+  </div>
+  <div class="meta">high confidence · CWE-693 ·
+    <a href="http://127.0.0.1:8099/login">http://127.0.0.1:8099/login</a></div>
+  <div class="ev">Response header &#x27;x-content-type-options&#x27; not present.</div>
+  <div class="desc">The response is missing the x-content-type-options header.</div>
+  <div class="fix"><b>Remediation:</b> Set &#x27;X-Content-Type-Options: nosniff&#x27; to stop MIME sniffing.</div>
+</div><div class="card" style="border-left-color:#4c9aff">
+  <div class="card-head">
+    <span class="sev" style="background:#4c9aff">LOW</span>
+    <h3>Missing X-Frame-Options / frame-ancestors</h3>
+  </div>
+  <div class="meta">high confidence · CWE-1021 ·
+    <a href="http://127.0.0.1:8099/login">http://127.0.0.1:8099/login</a></div>
+  <div class="ev">Response header &#x27;x-frame-options&#x27; not present.</div>
+  <div class="desc">The response is missing the x-frame-options header.</div>
+  <div class="fix"><b>Remediation:</b> Set X-Frame-Options: DENY or a CSP frame-ancestors directive to prevent clickjacking.</div>
+</div><div class="card" style="border-left-color:#4c9aff">
+  <div class="card-head">
+    <span class="sev" style="background:#4c9aff">LOW</span>
+    <h3>Missing Referrer-Policy</h3>
+  </div>
+  <div class="meta">high confidence · CWE-200 ·
+    <a href="http://127.0.0.1:8099/login">http://127.0.0.1:8099/login</a></div>
+  <div class="ev">Response header &#x27;referrer-policy&#x27; not present.</div>
+  <div class="desc">The response is missing the referrer-policy header.</div>
+  <div class="fix"><b>Remediation:</b> Set a Referrer-Policy such as &#x27;strict-origin-when-cross-origin&#x27;.</div>
+</div><div class="card" style="border-left-color:#4c9aff">
+  <div class="card-head">
+    <span class="sev" style="background:#4c9aff">LOW</span>
+    <h3>Cookie &#x27;SESSIONID&#x27; missing HttpOnly, SameSite</h3>
+  </div>
+  <div class="meta">high confidence · CWE-1004 ·
+    <a href="http://127.0.0.1:8099/login">http://127.0.0.1:8099/login</a></div>
+  <div class="ev">SESSIONID=demo-abc-123; Path=/</div>
+  <div class="desc">Set-Cookie for &#x27;SESSIONID&#x27; lacks: HttpOnly, SameSite.</div>
+  <div class="fix"><b>Remediation:</b> Set HttpOnly, Secure (on HTTPS) and SameSite on session cookies.</div>
+</div><div class="card" style="border-left-color:#4c9aff">
+  <div class="card-head">
+    <span class="sev" style="background:#4c9aff">LOW</span>
+    <h3>Missing X-Content-Type-Options</h3>
+  </div>
+  <div class="meta">high confidence · CWE-693 ·
+    <a href="http://127.0.0.1:8099/download?file=readme.txt">http://127.0.0.1:8099/download?file=readme.txt</a></div>
+  <div class="ev">Response header &#x27;x-content-type-options&#x27; not present.</div>
+  <div class="desc">The response is missing the x-content-type-options header.</div>
+  <div class="fix"><b>Remediation:</b> Set &#x27;X-Content-Type-Options: nosniff&#x27; to stop MIME sniffing.</div>
+</div><div class="card" style="border-left-color:#4c9aff">
+  <div class="card-head">
+    <span class="sev" style="background:#4c9aff">LOW</span>
+    <h3>Missing X-Frame-Options / frame-ancestors</h3>
+  </div>
+  <div class="meta">high confidence · CWE-1021 ·
+    <a href="http://127.0.0.1:8099/download?file=readme.txt">http://127.0.0.1:8099/download?file=readme.txt</a></div>
+  <div class="ev">Response header &#x27;x-frame-options&#x27; not present.</div>
+  <div class="desc">The response is missing the x-frame-options header.</div>
+  <div class="fix"><b>Remediation:</b> Set X-Frame-Options: DENY or a CSP frame-ancestors directive to prevent clickjacking.</div>
+</div><div class="card" style="border-left-color:#4c9aff">
+  <div class="card-head">
+    <span class="sev" style="background:#4c9aff">LOW</span>
+    <h3>Missing Referrer-Policy</h3>
+  </div>
+  <div class="meta">high confidence · CWE-200 ·
+    <a href="http://127.0.0.1:8099/download?file=readme.txt">http://127.0.0.1:8099/download?file=readme.txt</a></div>
+  <div class="ev">Response header &#x27;referrer-policy&#x27; not present.</div>
+  <div class="desc">The response is missing the referrer-policy header.</div>
+  <div class="fix"><b>Remediation:</b> Set a Referrer-Policy such as &#x27;strict-origin-when-cross-origin&#x27;.</div>
+</div><div class="card" style="border-left-color:#8b96a3">
+  <div class="card-head">
+    <span class="sev" style="background:#8b96a3">INFO</span>
+    <h3>Version disclosure in &#x27;server&#x27; header</h3>
+  </div>
+  <div class="meta">high confidence · CWE-200 ·
+    <a href="http://127.0.0.1:8099/api/orders">http://127.0.0.1:8099/api/orders</a></div>
+  <div class="ev">server: uvicorn, Apache/2.4.29</div>
+  <div class="desc">Server/framework version is exposed, aiding targeted attacks.</div>
+  <div class="fix"><b>Remediation:</b> Suppress or genericize Server/X-Powered-By headers.</div>
+</div><div class="card" style="border-left-color:#8b96a3">
+  <div class="card-head">
+    <span class="sev" style="background:#8b96a3">INFO</span>
+    <h3>Version disclosure in &#x27;x-powered-by&#x27; header</h3>
+  </div>
+  <div class="meta">high confidence · CWE-200 ·
+    <a href="http://127.0.0.1:8099/api/orders">http://127.0.0.1:8099/api/orders</a></div>
+  <div class="ev">x-powered-by: PHP/7.2.1</div>
+  <div class="desc">Server/framework version is exposed, aiding targeted attacks.</div>
+  <div class="fix"><b>Remediation:</b> Suppress or genericize Server/X-Powered-By headers.</div>
+</div>
+
+  <footer>Generated by WebFusion — a shift-left DevSecOps scanner.
+    For authorized security testing and education only.</footer>
+</div></body></html>

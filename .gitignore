@@ -8,14 +8,16 @@ venv/
 # WebFusion runtime data (captured traffic)
 webfusion_data/
 
-# Reports
-*.sarif
-*.json.report
-report.json
-report.html
+# Reports (stray CI output at repo root only — the demo/report sample is kept)
+/report.sarif
+/report.json
+/report.html
+webfusion.sarif
+webfusion.json
 
 # Vercel
 .vercel/
 
 # OS
 .DS_Store
+.vercel

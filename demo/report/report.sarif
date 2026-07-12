@@ -1,0 +1,721 @@
+{
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "WebFusion",
+          "version": "0.1.0",
+          "rules": [
+            {
+              "id": "content-security-policy",
+              "name": "Missing Content-Security-Policy",
+              "shortDescription": {
+                "text": "Missing Content-Security-Policy"
+              },
+              "fullDescription": {
+                "text": "The response is missing the content-security-policy header."
+              },
+              "properties": {
+                "cwe": "CWE-693"
+              }
+            },
+            {
+              "id": "x-content-type-options",
+              "name": "Missing X-Content-Type-Options",
+              "shortDescription": {
+                "text": "Missing X-Content-Type-Options"
+              },
+              "fullDescription": {
+                "text": "The response is missing the x-content-type-options header."
+              },
+              "properties": {
+                "cwe": "CWE-693"
+              }
+            },
+            {
+              "id": "x-frame-options",
+              "name": "Missing X-Frame-Options / frame-ancestors",
+              "shortDescription": {
+                "text": "Missing X-Frame-Options / frame-ancestors"
+              },
+              "fullDescription": {
+                "text": "The response is missing the x-frame-options header."
+              },
+              "properties": {
+                "cwe": "CWE-1021"
+              }
+            },
+            {
+              "id": "referrer-policy",
+              "name": "Missing Referrer-Policy",
+              "shortDescription": {
+                "text": "Missing Referrer-Policy"
+              },
+              "fullDescription": {
+                "text": "The response is missing the referrer-policy header."
+              },
+              "properties": {
+                "cwe": "CWE-200"
+              }
+            },
+            {
+              "id": "reflected-xss",
+              "name": "Reflected XSS in parameter 'q'",
+              "shortDescription": {
+                "text": "Reflected XSS in parameter 'q'"
+              },
+              "fullDescription": {
+                "text": "User input is reflected into the response without output encoding."
+              },
+              "properties": {
+                "cwe": "CWE-79"
+              }
+            },
+            {
+              "id": "sqli-error",
+              "name": "SQL injection (error-based) in parameter 'id'",
+              "shortDescription": {
+                "text": "SQL injection (error-based) in parameter 'id'"
+              },
+              "fullDescription": {
+                "text": "Appending a quote triggers a database error, indicating unsanitized SQL."
+              },
+              "properties": {
+                "cwe": "CWE-89"
+              }
+            },
+            {
+              "id": "cookie-flags",
+              "name": "Cookie 'SESSIONID' missing HttpOnly, SameSite",
+              "shortDescription": {
+                "text": "Cookie 'SESSIONID' missing HttpOnly, SameSite"
+              },
+              "fullDescription": {
+                "text": "Set-Cookie for 'SESSIONID' lacks: HttpOnly, SameSite."
+              },
+              "properties": {
+                "cwe": "CWE-1004"
+              }
+            },
+            {
+              "id": "open-redirect",
+              "name": "Open redirect via parameter 'url'",
+              "shortDescription": {
+                "text": "Open redirect via parameter 'url'"
+              },
+              "fullDescription": {
+                "text": "The app redirects to an attacker-controlled external URL."
+              },
+              "properties": {
+                "cwe": "CWE-601"
+              }
+            },
+            {
+              "id": "path-traversal",
+              "name": "Path traversal via parameter 'file'",
+              "shortDescription": {
+                "text": "Path traversal via parameter 'file'"
+              },
+              "fullDescription": {
+                "text": "A file path parameter allows reading arbitrary files via '../' sequences."
+              },
+              "properties": {
+                "cwe": "CWE-22"
+              }
+            },
+            {
+              "id": "cors-wildcard-credentials",
+              "name": "CORS allows any origin with credentials",
+              "shortDescription": {
+                "text": "CORS allows any origin with credentials"
+              },
+              "fullDescription": {
+                "text": "A wildcard ACAO combined with credentials lets any site read authenticated responses."
+              },
+              "properties": {
+                "cwe": "CWE-942"
+              }
+            },
+            {
+              "id": "version-disclosure",
+              "name": "Version disclosure in 'server' header",
+              "shortDescription": {
+                "text": "Version disclosure in 'server' header"
+              },
+              "fullDescription": {
+                "text": "Server/framework version is exposed, aiding targeted attacks."
+              },
+              "properties": {
+                "cwe": "CWE-200"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "content-security-policy",
+          "level": "warning",
+          "message": {
+            "text": "Missing Content-Security-Policy. Response header 'content-security-policy' not present. Fix: Add a Content-Security-Policy that restricts script/style/object sources."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:8099/"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "medium",
+            "confidence": "high"
+          }
+        },
+        {
+          "ruleId": "x-content-type-options",
+          "level": "note",
+          "message": {
+            "text": "Missing X-Content-Type-Options. Response header 'x-content-type-options' not present. Fix: Set 'X-Content-Type-Options: nosniff' to stop MIME sniffing."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:8099/"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "low",
+            "confidence": "high"
+          }
+        },
+        {
+          "ruleId": "x-frame-options",
+          "level": "note",
+          "message": {
+            "text": "Missing X-Frame-Options / frame-ancestors. Response header 'x-frame-options' not present. Fix: Set X-Frame-Options: DENY or a CSP frame-ancestors directive to prevent clickjacking."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:8099/"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "low",
+            "confidence": "high"
+          }
+        },
+        {
+          "ruleId": "referrer-policy",
+          "level": "note",
+          "message": {
+            "text": "Missing Referrer-Policy. Response header 'referrer-policy' not present. Fix: Set a Referrer-Policy such as 'strict-origin-when-cross-origin'."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:8099/"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "low",
+            "confidence": "high"
+          }
+        },
+        {
+          "ruleId": "reflected-xss",
+          "level": "error",
+          "message": {
+            "text": "Reflected XSS in parameter 'q'. Payload reflected unencoded: wf8555f0\"'><svg/onload=alert(1)> Fix: Context-aware output encoding; apply a strict Content-Security-Policy."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:8099/search?q=wf8555f0%22%27%3E%3Csvg%2Fonload%3Dalert%281%29%3E"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "high",
+            "confidence": "high"
+          }
+        },
+        {
+          "ruleId": "content-security-policy",
+          "level": "warning",
+          "message": {
+            "text": "Missing Content-Security-Policy. Response header 'content-security-policy' not present. Fix: Add a Content-Security-Policy that restricts script/style/object sources."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:8099/search?q=shoes"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "medium",
+            "confidence": "high"
+          }
+        },
+        {
+          "ruleId": "x-content-type-options",
+          "level": "note",
+          "message": {
+            "text": "Missing X-Content-Type-Options. Response header 'x-content-type-options' not present. Fix: Set 'X-Content-Type-Options: nosniff' to stop MIME sniffing."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:8099/search?q=shoes"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "low",
+            "confidence": "high"
+          }
+        },
+        {
+          "ruleId": "x-frame-options",
+          "level": "note",
+          "message": {
+            "text": "Missing X-Frame-Options / frame-ancestors. Response header 'x-frame-options' not present. Fix: Set X-Frame-Options: DENY or a CSP frame-ancestors directive to prevent clickjacking."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:8099/search?q=shoes"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "low",
+            "confidence": "high"
+          }
+        },
+        {
+          "ruleId": "referrer-policy",
+          "level": "note",
+          "message": {
+            "text": "Missing Referrer-Policy. Response header 'referrer-policy' not present. Fix: Set a Referrer-Policy such as 'strict-origin-when-cross-origin'."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:8099/search?q=shoes"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "low",
+            "confidence": "high"
+          }
+        },
+        {
+          "ruleId": "sqli-error",
+          "level": "error",
+          "message": {
+            "text": "SQL injection (error-based) in parameter 'id'. SQL syntax; check the manual that corresponds to your MySQL Fix: Use parameterized queries / prepared statements; never concatenate input into SQL."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:8099/product?id=1%27"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "critical",
+            "confidence": "high"
+          }
+        },
+        {
+          "ruleId": "content-security-policy",
+          "level": "warning",
+          "message": {
+            "text": "Missing Content-Security-Policy. Response header 'content-security-policy' not present. Fix: Add a Content-Security-Policy that restricts script/style/object sources."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:8099/product?id=1"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "medium",
+            "confidence": "high"
+          }
+        },
+        {
+          "ruleId": "x-content-type-options",
+          "level": "note",
+          "message": {
+            "text": "Missing X-Content-Type-Options. Response header 'x-content-type-options' not present. Fix: Set 'X-Content-Type-Options: nosniff' to stop MIME sniffing."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:8099/product?id=1"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "low",
+            "confidence": "high"
+          }
+        },
+        {
+          "ruleId": "x-frame-options",
+          "level": "note",
+          "message": {
+            "text": "Missing X-Frame-Options / frame-ancestors. Response header 'x-frame-options' not present. Fix: Set X-Frame-Options: DENY or a CSP frame-ancestors directive to prevent clickjacking."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:8099/product?id=1"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "low",
+            "confidence": "high"
+          }
+        },
+        {
+          "ruleId": "referrer-policy",
+          "level": "note",
+          "message": {
+            "text": "Missing Referrer-Policy. Response header 'referrer-policy' not present. Fix: Set a Referrer-Policy such as 'strict-origin-when-cross-origin'."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:8099/product?id=1"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "low",
+            "confidence": "high"
+          }
+        },
+        {
+          "ruleId": "content-security-policy",
+          "level": "warning",
+          "message": {
+            "text": "Missing Content-Security-Policy. Response header 'content-security-policy' not present. Fix: Add a Content-Security-Policy that restricts script/style/object sources."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:8099/login"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "medium",
+            "confidence": "high"
+          }
+        },
+        {
+          "ruleId": "x-content-type-options",
+          "level": "note",
+          "message": {
+            "text": "Missing X-Content-Type-Options. Response header 'x-content-type-options' not present. Fix: Set 'X-Content-Type-Options: nosniff' to stop MIME sniffing."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:8099/login"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "low",
+            "confidence": "high"
+          }
+        },
+        {
+          "ruleId": "x-frame-options",
+          "level": "note",
+          "message": {
+            "text": "Missing X-Frame-Options / frame-ancestors. Response header 'x-frame-options' not present. Fix: Set X-Frame-Options: DENY or a CSP frame-ancestors directive to prevent clickjacking."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:8099/login"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "low",
+            "confidence": "high"
+          }
+        },
+        {
+          "ruleId": "referrer-policy",
+          "level": "note",
+          "message": {
+            "text": "Missing Referrer-Policy. Response header 'referrer-policy' not present. Fix: Set a Referrer-Policy such as 'strict-origin-when-cross-origin'."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:8099/login"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "low",
+            "confidence": "high"
+          }
+        },
+        {
+          "ruleId": "cookie-flags",
+          "level": "note",
+          "message": {
+            "text": "Cookie 'SESSIONID' missing HttpOnly, SameSite. SESSIONID=demo-abc-123; Path=/ Fix: Set HttpOnly, Secure (on HTTPS) and SameSite on session cookies."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:8099/login"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "low",
+            "confidence": "high"
+          }
+        },
+        {
+          "ruleId": "open-redirect",
+          "level": "warning",
+          "message": {
+            "text": "Open redirect via parameter 'url'. Location: https://webfusion-oob.example/ Fix: Allow-list redirect targets or use relative paths only."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:8099/redirect?url=https%3A%2F%2Fwebfusion-oob.example%2F"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "medium",
+            "confidence": "high"
+          }
+        },
+        {
+          "ruleId": "path-traversal",
+          "level": "error",
+          "message": {
+            "text": "Path traversal via parameter 'file'. Response contains /etc/passwd contents (root:...:0:0:) Fix: Canonicalize and validate paths against an allow-list; never use raw input in file paths."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:8099/download?file=..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "critical",
+            "confidence": "high"
+          }
+        },
+        {
+          "ruleId": "content-security-policy",
+          "level": "warning",
+          "message": {
+            "text": "Missing Content-Security-Policy. Response header 'content-security-policy' not present. Fix: Add a Content-Security-Policy that restricts script/style/object sources."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:8099/download?file=readme.txt"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "medium",
+            "confidence": "high"
+          }
+        },
+        {
+          "ruleId": "x-content-type-options",
+          "level": "note",
+          "message": {
+            "text": "Missing X-Content-Type-Options. Response header 'x-content-type-options' not present. Fix: Set 'X-Content-Type-Options: nosniff' to stop MIME sniffing."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:8099/download?file=readme.txt"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "low",
+            "confidence": "high"
+          }
+        },
+        {
+          "ruleId": "x-frame-options",
+          "level": "note",
+          "message": {
+            "text": "Missing X-Frame-Options / frame-ancestors. Response header 'x-frame-options' not present. Fix: Set X-Frame-Options: DENY or a CSP frame-ancestors directive to prevent clickjacking."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:8099/download?file=readme.txt"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "low",
+            "confidence": "high"
+          }
+        },
+        {
+          "ruleId": "referrer-policy",
+          "level": "note",
+          "message": {
+            "text": "Missing Referrer-Policy. Response header 'referrer-policy' not present. Fix: Set a Referrer-Policy such as 'strict-origin-when-cross-origin'."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:8099/download?file=readme.txt"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "low",
+            "confidence": "high"
+          }
+        },
+        {
+          "ruleId": "cors-wildcard-credentials",
+          "level": "error",
+          "message": {
+            "text": "CORS allows any origin with credentials. Access-Control-Allow-Origin: * with Allow-Credentials: true Fix: Reflect only an explicit allow-list of trusted origins when credentials are used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:8099/api/orders"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "high",
+            "confidence": "high"
+          }
+        },
+        {
+          "ruleId": "version-disclosure",
+          "level": "note",
+          "message": {
+            "text": "Version disclosure in 'server' header. server: uvicorn, Apache/2.4.29 Fix: Suppress or genericize Server/X-Powered-By headers."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:8099/api/orders"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "info",
+            "confidence": "high"
+          }
+        },
+        {
+          "ruleId": "version-disclosure",
+          "level": "note",
+          "message": {
+            "text": "Version disclosure in 'x-powered-by' header. x-powered-by: PHP/7.2.1 Fix: Suppress or genericize Server/X-Powered-By headers."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://127.0.0.1:8099/api/orders"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "info",
+            "confidence": "high"
+          }
+        }
+      ]
+    }
+  ]
+}

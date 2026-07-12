@@ -53,6 +53,26 @@ uvicorn api.index:app --port 8778      # run locally
 # or deploy to Vercel — see DEPLOY.md
 ```
 
+### End-to-end demo + report
+
+A bundled vulnerable demo site (`demo/target_app.py`, **local only — never
+deploy**) lets you see the whole flow produce a real deliverable:
+
+```bash
+python demo/run_demo.py           # boots the target, active-scans 7 routes
+```
+
+It writes a full assessment report to `demo/report/`:
+
+- **`report.html`** — executive summary, overall risk rating, severity
+  breakdown, per-endpoint scope table, and every finding with evidence, CWE, and
+  remediation. (A committed sample is in [`demo/report/`](demo/report/).)
+- **`report.json`** — machine-readable, and **`report.sarif`** for code scanning.
+
+The multi-endpoint report generator (`webfusion/scanner/report_bundle.py`) is
+reusable for any real assessment — aggregate several `scan()` results and call
+`report_bundle.to_html / to_json / to_sarif`.
+
 ## 2. Interactive proxy (local)
 
 ```bash
